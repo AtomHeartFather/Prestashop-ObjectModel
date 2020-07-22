@@ -36,19 +36,29 @@ class Student extends ObjectModel
 
     public static function getAllNames($idLang)
     {
-        $sql = 'SELECT l.`name` FROM `'._DB_PREFIX_.'student` c LEFT JOIN `'._DB_PREFIX_.'student_lang` l on l.`id_student` = c.`id_student` WHERE l.`id_lang` = '.(int) $idLang.''
+        $sql = 'SELECT l.`name` 
+                FROM `'._DB_PREFIX_.'student` c 
+                LEFT JOIN `'._DB_PREFIX_.'student_lang` l 
+                ON l.`id_student` = c.`id_student` 
+                WHERE l.`id_lang` = '.(int) $idLang.'';
         return Db::getInstance()->executeS($sql);
     }
 
     public static function getBestAverageScoreStudent($idLang)
     {
-        $sql = 'SELECT l.`name` FROM `'._DB_PREFIX_.'student` c LEFT JOIN `'._DB_PREFIX_.'student_lang` l on l.`id_student` = c.`id_student` WHERE c.`average_score` = (SELECT MAX(`average_score`) FROM `'._DB_PREFIX_.'student`) AND l.`id_lang` = '.(int) $idLang.'';
+        $sql = 'SELECT l.`name` 
+                FROM `'._DB_PREFIX_.'student` c 
+                LEFT JOIN `'._DB_PREFIX_.'student_lang` l 
+                ON l.`id_student` = c.`id_student` 
+                WHERE c.`average_score` = (SELECT MAX(`average_score`) FROM `'._DB_PREFIX_.'student`) 
+                AND l.`id_lang` = '.(int) $idLang.'';
         return Db::getInstance()->executeS($sql);
     }
 
     public static function getMaxAverageScore()
     {
-        $sql = 'SELECT MAX(`average_score`) FROM `student`';
+        $sql = 'SELECT MAX(`average_score`) 
+                FROM `student`';
         return Db::getInstance()->executeS($sql);
     }
 
