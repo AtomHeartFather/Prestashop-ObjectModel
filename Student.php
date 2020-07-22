@@ -44,7 +44,7 @@ class Student extends ObjectModel
 
     public static function getBestAverageScoreStudent()
     {
-        $sql = 'SELECT `name` FROM `student` WHERE `average_score`  (SELECT MAX(`average_score`) FROM `student`)';
+        $sql = 'SELECT `name` FROM `student` WHERE `average_score` = (SELECT MAX(`average_score`) FROM `student`)';
         return Db::getInstance()->executeS($sql);
     }
 
