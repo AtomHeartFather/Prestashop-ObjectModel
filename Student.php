@@ -34,17 +34,15 @@ class Student extends ObjectModel
         ),
     );
 
-    public static function getAllNames()
+    public static function getAllNames($idLang)
     {
-        $sql = new DbQuery();
-        $sql->select('name');
-        $sql->from('student');
+        $sql = 'SELECT `name` FROM `student` c LEFT JOIN `student_lang` l on l.`id_student` = c.`id_student` WHERE l.`id_lang` = '.(int) $idLang.'';
         return Db::getInstance()->executeS($sql);
     }
 
-    public static function getBestAverageScoreStudent()
+    public static function getBestAverageScoreStudent($idLang)
     {
-        $sql = 'SELECT `name` FROM `student` WHERE `average_score` = (SELECT MAX(`average_score`) FROM `student`)';
+        $sql = 'SELECT l.`name` FROM `student` c LEFT JOIN `student_lang` l on l.`id_student` = c.`id_student` WHERE c.`average_score` = (SELECT MAX(`average_score`) FROM `student`) AND l.`id_lang` = '.(int) $idLang.'';
         return Db::getInstance()->executeS($sql);
     }
 
