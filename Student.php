@@ -12,7 +12,7 @@
 class Student extends ObjectModel
 {
 
-    public $id;
+    public $id_student;
 
     public $name;
 
